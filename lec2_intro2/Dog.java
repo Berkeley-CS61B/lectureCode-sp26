@@ -39,6 +39,13 @@ class Dog {
         }
         return d2;
     }
+
+    void main() {
+        Dog d1 = new Dog(5);
+        Dog d2 = new Dog(6);
+        Dog.maxDog(d1, d2);
+        d1.makeNoise();
+    }
 }
 
 
