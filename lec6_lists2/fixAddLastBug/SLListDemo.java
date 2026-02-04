@@ -1,4 +1,4 @@
-package lec4_lists2.fixAddLastBug;
+package lec6_lists2.fixAddLastBug;
 
 public class SLListDemo {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package lec4_lists2.fixAddLastBug;
+package lec6_lists2.fixAddLastBug;
 
 public class SLList {
     private class IntNode {

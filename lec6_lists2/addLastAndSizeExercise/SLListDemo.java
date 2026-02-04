@@ -1,4 +1,4 @@
-package lec4_lists2.addLastAndSizeExercise;
+package lec6_lists2.addLastAndSizeExercise;
 
 public class SLListDemo {
     public static void main(String[] args) {
