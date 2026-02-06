@@ -17,6 +17,11 @@ public class AList {
 
     /** Adds x to the end of our list. */
     public void addLast(int x) {
+        // YOUR CODE HERE!
+        // When the array is too full...
+        // int[] resized = new int[size+1];
+        // Copy over the array items
+        // items = resized
         items[size] = x;
         size += 1;
     }
