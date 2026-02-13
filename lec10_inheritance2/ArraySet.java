@@ -1,6 +1,10 @@
 package lec10_inheritance2;
 
-public class ArraySet<T> {
+import java.util.Iterator;
+
+// saying implements Iterable<T>
+// is the magic ingredient so that : works properly as in for (int i : aset)
+public class ArraySet<T> implements Iterable<T> {
     private T[] items;
     private int size; // the next item to be added will be at position size
 
@@ -38,6 +42,64 @@ public class ArraySet<T> {
         return size;
     }
 
+    // need to tell java that an ArraySetIterator is an Iterator
+    // THIS IS A COOL WIZARD HE'S SUPPOSED TO COOL WIZARD THINGS
+    //  specifically: hasNext
+    // .         and .next
+    private class ArraySetIterator implements Iterator<T>{
+        int wizPos;
+
+        ArraySetIterator() {
+            wizPos = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            // example: size is 3
+            // if the wizard is in position 0, 1, or 2, we're good
+            return wizPos < size;
+        }
+
+        @Override
+        // NEXT GIVES THE VALUE THE WIZARD IS AT
+        // AND ALSO MOVES THE WIZARD
+        public T next() {
+            T thingToReturn = items[wizPos];
+            wizPos += 1;
+            return thingToReturn;
+        }
+    }
+
+    public Iterator<T> iterator() {
+        return new ArraySetIterator();
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder returnString = new StringBuilder("[");
+        for (T x : this) {
+            returnString.append(x).append(", ");
+        }
+        returnString.append("]");
+        return returnString.toString();
+    }
+
+    public boolean equals(ArraySet o) {
+        if (o instanceof ArraySet uddaSet) {
+            // in this if statement, uddaSet is of type ArraySet
+            // and refers to whatever was given to equals as its parameter
+            if (size == uddaSet.size()) {
+                for (T x : this) {
+                    if (!uddaSet.contains(x)) {
+                        return false;
+                    }
+                 }
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         ArraySet<Integer> aset = new ArraySet<>();
         aset.add(5);
@@ -45,11 +107,19 @@ public class ArraySet<T> {
         aset.add(42);
 
         /* won't work yet */
+        // JAVA is unhappy right now, because it does not
+        // know that ArraySets have an iterator method.
         for (int i : aset) {
             System.out.println(i);
         }
 
-        // System.out.println(aset);
+        /*Iterator<Integer> seer = aset.iterator();
+        while (seer.hasNext()) {
+            System.out.println(seer.next());
+        }*/
+
+        System.out.println(aset);
+        aset.equals(List.of(1, 2, 3));
 
     }
 
