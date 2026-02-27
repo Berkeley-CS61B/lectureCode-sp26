@@ -1,47 +1,68 @@
 package lec8_lists4;
 
-/**
- * AList before we've made the improvements that we'll make in lecture 8.
- * After lecture, we'll upload the new version of AList with all of the code
- * we wrote during lecture. This version exists in case you'd like to
- * follow along writing code during lecture!
- */
-public class AList {
-    private int size;
-    private int[] items;
+// AList of integers
+// Hug is a type to be picked later
+public class AList<Hug> {
+    public int size;
+    public Hug[] contents;
 
     public AList() {
-        items = new int[999];
         size = 0;
+        contents = (Hug[]) new Object[100];
     }
 
-    /** Adds x to the end of our list. */
-    public void addLast(int x) {
-        // YOUR CODE HERE!
-        // When the array is too full...
-        // int[] resized = new int[size+1];
-        // Copy over the array items
-        // items = resized
-        items[size] = x;
+    // replaces the existing array with a new array of
+    // requested size
+    private void resize(int capacity) {
+        Hug[] a = (Hug[]) new Object[capacity];
+        for (int i = 0; i < size; i += 1) {
+            a[i] = contents[i];
+        }
+        contents = a;
+    }
+
+    // size: 3
+    // contents: [6, 3, 9, -, -, -, -, ...]
+    public void addLast(Hug x) {
+        // I worked out a little example on paper
+        // it felt right ot me that it should be
+        // contents[size]
+
+        // is the array full
+        if (size == contents.length) {
+            resize(size + 1);
+        }
+
+        contents[size] = x;
         size += 1;
     }
 
-    /** Returns the item at index i. */
-    public int get(int i) {
-        return items[i];
+    // size: 3
+    // contents: [6, 3, 9, -, -, -, -, ...]
+    public Hug getLast() {
+        return contents[size - 1];
     }
 
     public int size() {
         return size;
     }
 
-    /** Removes and returns the last item in the list. */
-    public int removeLast() {
-        size -= 1;
-        return items[size]; // Note that we don't need to zero out this item!
+    // size: 3
+    // contents: [6, 3, 9, -, -, -, -, ...]
+    public Hug get(int i) {
+        if (i >= size) {
+            throw new IndexOutOfBoundsException("You dummy too big of index.. mayb ei'm the dumy");
+        }
+        return contents[i];
     }
 
-    public static void main(String[] args) {
-        AList myList = new AList();
+    // we're supposed to return the 9
+    // size: 3
+    // contents: [6, 3, 9, -, -, -, -, ...]
+    public Hug removeLast() {
+        Hug valueToReturn = getLast();
+        // contents[size - 1] = 0; (purist or not, monk decisions)
+        size = size - 1;
+        return valueToReturn;
     }
 }
