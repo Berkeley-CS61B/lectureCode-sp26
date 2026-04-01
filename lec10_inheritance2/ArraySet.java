@@ -1,6 +1,7 @@
 package lec10_inheritance2;
 
 import java.util.Iterator;
+import java.util.List;
 
 // saying implements Iterable<T>
 // is the magic ingredient so that : works properly as in for (int i : aset)
